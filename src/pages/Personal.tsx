@@ -1,4 +1,5 @@
-import { Heart, Star, Sparkles, GraduationCap, Camera, Music, Coffee, Flower2, Mail, Instagram, Wechat } from 'lucide-react';
+import { Heart, Star, Sparkles, GraduationCap, Camera, Music, Coffee, Flower2, Mail, Instagram, Wechat, Code } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Personal() {
   return (
@@ -126,6 +127,35 @@ export default function Personal() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Python Course Section */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-pink-700 mb-4 flex items-center justify-center gap-3">
+              <Code className="w-8 h-8 text-blue-500" />
+              Python 基础课程
+              <Code className="w-8 h-8 text-blue-500" />
+            </h2>
+            <p className="text-rose-500 text-lg">从零开始学习 Python 编程 🌸</p>
+          </div>
+          <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-3xl p-8 md:p-12 shadow-xl border border-blue-100">
+            <div className="text-center">
+              <div className="text-6xl mb-6">🐍</div>
+              <p className="text-lg text-blue-700 mb-8 max-w-2xl mx-auto">
+                这是一个专为初学者设计的 Python 基础课程，包含 6 个章节，从入门到面向对象编程，循序渐进，让你轻松掌握 Python 编程技能！
+              </p>
+              <Link
+                to="/python-course"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+              >
+                开始学习 Python
+                <Sparkles className="w-6 h-6" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
