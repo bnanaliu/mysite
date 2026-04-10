@@ -1,8 +1,10 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ChevronLeft, ChevronRight, Home, Code } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Home, Code, Menu, X } from 'lucide-react';
 import { courseData } from '@/data/courseData';
+import { useState } from 'react';
 
 export default function Chapter() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const chapter = courseData.chapters.find(c => c.id === id);
@@ -61,28 +63,100 @@ export default function Chapter() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-10">
+      {/* Navigation */}
+      <nav className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Link
               to="/"
-              className="inline-flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+              className="flex items-center gap-3 text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
             >
-              <ArrowLeft className="w-5 h-5" />
-              <span>返回首页</span>
+              <Code className="w-8 h-8 text-blue-600" />
+              Python 学习站
             </Link>
-            <div className="text-center">
-              <span className="text-sm text-slate-500">第 {currentIndex + 1} 章 / 共 {courseData.chapters.length} 章</span>
+            
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center gap-8">
+              <Link to="/" className="text-slate-700 hover:text-blue-600 font-medium transition-colors">
+                首页
+              </Link>
+              <Link to={`/chapter/${courseData.chapters[0].id}`} className="text-slate-700 hover:text-blue-600 font-medium transition-colors">
+                开始学习
+              </Link>
+              <div className="relative group">
+                <button className="flex items-center gap-2 text-slate-700 hover:text-blue-600 font-medium transition-colors">
+                  课程章节
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+                <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-xl shadow-lg py-3 border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  {courseData.chapters.map((chapter, index) => (
+                    <Link
+                      key={chapter.id}
+                      to={`/chapter/${chapter.id}`}
+                      className={`block px-6 py-3 ${currentIndex === index ? 'bg-blue-50 text-blue-600' : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600'} transition-colors`}
+                    >
+                      {index + 1}. {chapter.title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
+            
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden text-slate-700"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
+          
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden mt-4 space-y-3">
+              <Link
+                to="/"
+                className="block px-4 py-2 text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                首页
+              </Link>
+              <Link
+                to={`/chapter/${courseData.chapters[0].id}`}
+                className="block px-4 py-2 text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                开始学习
+              </Link>
+              <div className="space-y-1">
+                <div className="px-4 py-2 text-slate-500 font-medium">课程章节</div>
+                {courseData.chapters.map((chapter, index) => (
+                  <Link
+                    key={chapter.id}
+                    to={`/chapter/${chapter.id}`}
+                    className={`block px-6 py-2 ${currentIndex === index ? 'bg-blue-50 text-blue-600' : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600'} rounded-lg transition-colors`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {index + 1}. {chapter.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-      </header>
+      </nav>
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 py-12">
         {/* Chapter Title */}
         <div className="mb-12">
+          <div className="flex items-center gap-2 text-sm text-blue-600 mb-4">
+            <Link to="/" className="hover:underline">首页</Link>
+            <ChevronRight className="w-4 h-4" />
+            <span>课程章节</span>
+            <ChevronRight className="w-4 h-4" />
+            <span className="text-slate-600">{chapter.title}</span>
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
             {chapter.title}
           </h1>
@@ -151,11 +225,30 @@ export default function Chapter() {
       </main>
 
       {/* Footer */}
-      <footer className="py-8 px-6 mt-12">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-slate-500">
-            © 2024 Python 基础课程. 用心打造每一节课程。
-          </p>
+      <footer className="py-12 px-6 bg-slate-900">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+            <Link
+              to="/"
+              className="flex items-center gap-3 text-2xl font-bold text-white mb-4 md:mb-0"
+            >
+              <Code className="w-8 h-8 text-blue-400" />
+              Python 学习站
+            </Link>
+            <div className="flex gap-6">
+              <Link to="/" className="text-slate-400 hover:text-white transition-colors">
+                首页
+              </Link>
+              <Link to={`/chapter/${courseData.chapters[0].id}`} className="text-slate-400 hover:text-white transition-colors">
+                开始学习
+              </Link>
+            </div>
+          </div>
+          <div className="border-t border-slate-800 pt-8 text-center">
+            <p className="text-slate-400">
+              © 2024 Python 学习站. 用心打造每一节课程。
+            </p>
+          </div>
         </div>
       </footer>
     </div>

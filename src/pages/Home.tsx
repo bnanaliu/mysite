@@ -1,8 +1,12 @@
-import { BookOpen, Code, GraduationCap, CheckCircle2, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { BookOpen, Code, GraduationCap, CheckCircle2, ChevronRight, Home as HomeIcon, Menu, X } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { courseData } from '@/data/courseData';
+import { useState } from 'react';
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  
   const features = [
     {
       icon: <BookOpen className="w-8 h-8" />,
@@ -23,6 +27,89 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Navigation */}
+      <nav className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <Link
+              to="/"
+              className="flex items-center gap-3 text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
+            >
+              <Code className="w-8 h-8 text-blue-600" />
+              Python 学习站
+            </Link>
+            
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center gap-8">
+              <Link to="/" className="text-slate-700 hover:text-blue-600 font-medium transition-colors">
+                首页
+              </Link>
+              <Link to={`/chapter/${courseData.chapters[0].id}`} className="text-slate-700 hover:text-blue-600 font-medium transition-colors">
+                开始学习
+              </Link>
+              <div className="relative group">
+                <button className="flex items-center gap-2 text-slate-700 hover:text-blue-600 font-medium transition-colors">
+                  课程章节
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+                <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-xl shadow-lg py-3 border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  {courseData.chapters.map((chapter, index) => (
+                    <Link
+                      key={chapter.id}
+                      to={`/chapter/${chapter.id}`}
+                      className="block px-6 py-3 text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                    >
+                      {index + 1}. {chapter.title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden text-slate-700"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+          
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden mt-4 space-y-3">
+              <Link
+                to="/"
+                className="block px-4 py-2 text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                首页
+              </Link>
+              <Link
+                to={`/chapter/${courseData.chapters[0].id}`}
+                className="block px-4 py-2 text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                开始学习
+              </Link>
+              <div className="space-y-1">
+                <div className="px-4 py-2 text-slate-500 font-medium">课程章节</div>
+                {courseData.chapters.map((chapter, index) => (
+                  <Link
+                    key={chapter.id}
+                    to={`/chapter/${chapter.id}`}
+                    className="block px-6 py-2 text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {index + 1}. {chapter.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 px-6">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-indigo-900"></div>
@@ -39,7 +126,7 @@ export default function Home() {
             学习 <span className="text-yellow-400">Python</span> 编程
           </h1>
           <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
-            从零开始，系统学习 Python 编程，掌握核心概念和实用技巧，开启你的编程之旅
+            专注于 Python 基础编程素养，包括基础语法、数据结构、函数与模块、面向对象编程、文件操作与异常处理
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -119,10 +206,29 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-12 px-6 bg-slate-900">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-slate-400">
-            © 2024 Python 基础课程. 用心打造每一节课程。
-          </p>
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+            <Link
+              to="/"
+              className="flex items-center gap-3 text-2xl font-bold text-white mb-4 md:mb-0"
+            >
+              <Code className="w-8 h-8 text-blue-400" />
+              Python 学习站
+            </Link>
+            <div className="flex gap-6">
+              <Link to="/" className="text-slate-400 hover:text-white transition-colors">
+                首页
+              </Link>
+              <Link to={`/chapter/${courseData.chapters[0].id}`} className="text-slate-400 hover:text-white transition-colors">
+                开始学习
+              </Link>
+            </div>
+          </div>
+          <div className="border-t border-slate-800 pt-8 text-center">
+            <p className="text-slate-400">
+              © 2024 Python 学习站. 用心打造每一节课程。
+            </p>
+          </div>
         </div>
       </footer>
     </div>
