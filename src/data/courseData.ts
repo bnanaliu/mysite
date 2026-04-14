@@ -3,399 +3,371 @@ import { Course } from '@/types/course';
 export const courseData: Course = {
   id: 'python-basics',
   title: 'Python 基础编程素养',
-  description: '专注于 Python 基础编程素养，包括基础语法、数据结构、函数与模块、面向对象编程、文件操作与异常处理',
+  description: '专为数据分析与应用专业学生设计，构建适应 AI 时代的 Python 基础技能体系，为专业数据分析工作打下坚实基础',
   chapters: [
     {
       id: 'chapter-1',
-      title: 'Python 基础语法',
-      description: '学习 Python 的基本语法规则和编程基础',
+      title: '核心语法与编程思维',
+      description: '构建坚实的逻辑基础，理解计算机思考方式，为与 AI 协作编程做准备',
       content: `
-## 1.1 Python 简介
+## 1.1 基础语法与数据结构
 
-Python 是一种高级、解释型、通用的编程语言，以其简洁的语法和强大的生态系统而闻名。
+- **变量与数据类型**：整数、浮点数、字符串、布尔值
+- **数据结构**：列表、元组、字典、集合
+- **运算符**：算术、比较、逻辑运算符
+- **控制流**：if-elif-else 条件判断，for/while 循环
+- **重点**：理解不同数据结构的应用场景，为高效处理数据打基础
 
-### 主要特点：
-- 简单易学，语法清晰
-- 免费开源
-- 跨平台兼容性
-- 丰富的标准库
-- 面向对象编程支持
+## 1.2 函数与模块化编程
 
-## 1.2 安装与环境配置
+- **函数定义与调用**：参数传递、返回值
+- **函数参数类型**：位置参数、默认参数、可变参数(*args)、关键字参数(**kwargs)
+- **函数作用域**：局部变量、全局变量
+- **模块化**：创建、导入和使用模块与包
+- **重点**：将代码组织成函数和模块，提高代码可维护性
 
-- 访问 [Python官网](https://www.python.org) 下载最新版本
-- 安装过程中勾选 "Add Python to PATH"
-- 验证安装：在命令行运行 `python --version`
+## 1.3 面向对象编程基础
 
-## 1.3 基本语法规则
+- **类与对象**：定义类、创建对象
+- **封装**：属性和方法
+- **继承**：子类继承父类
+- **多态**：方法重写
+- **重点**：理解 OOP 思想，为使用 Pandas 等库做准备
 
-- **缩进**：使用空格或制表符进行代码缩进（推荐4个空格）
-- **注释**：使用 `#` 进行单行注释
-- **变量**：不需要声明类型，直接赋值
-- **语句结束**：不需要分号，换行即表示语句结束
+## 1.4 文件操作与异常处理
 
-## 1.4 基本输入输出
-
-- `print()`：输出内容到控制台
-- `input()`：从控制台获取用户输入
+- **文件读写**：文本文件、CSV、JSON
+- **异常处理**：try-except 捕获和处理异常
+- **上下文管理器**：with 语句自动管理资源
+- **重点**：编写健壮的脚本，优雅处理错误
       `,
-      codeExample: `# 基本输出
-print("Hello, Python!")
-print("Python", "is", "awesome")
+      codeExample: `# 基础数据结构示例
+# 列表 - 有序可变序列
+fruits = ["苹果", "香蕉", "橙子"]
+fruits.append("草莓")
+print("列表:", fruits)
 
-# 变量赋值
-name = "Python"
-age = 30
+# 字典 - 键值对集合
+student = {
+    "name": "小明",
+    "age": 20,
+    "major": "数据分析"
+}
+print("字典:", student)
 
-# 格式化输出
-print(f"{name} 已经 {age} 岁了")
-print("{} 已经 {} 岁了".format(name, age))
+# 函数定义
+def calculate_statistics(data):
+    """计算数据的统计信息"""
+    if not data:
+        return {"error": "数据为空"}
+    
+    total = sum(data)
+    average = total / len(data)
+    maximum = max(data)
+    minimum = min(data)
+    
+    return {
+        "total": total,
+        "average": average,
+        "max": maximum,
+        "min": minimum
+    }
 
-# 基本输入
-user_name = input("请输入你的名字：")
-print(f"你好，{user_name}！")
+# 测试函数
+scores = [85, 92, 78, 90, 88]
+print("统计结果:", calculate_statistics(scores))
 
-# 数字类型
-x = 10          # 整数
-pi = 3.14       # 浮点数
-is_valid = True # 布尔值
+# 面向对象示例
+class DataAnalyzer:
+    def __init__(self, data):
+        self.data = data
+    
+    def analyze(self):
+        return calculate_statistics(self.data)
 
-print(type(x), type(pi), type(is_valid))`,
+# 使用对象
+analyzer = DataAnalyzer(scores)
+print("对象分析结果:", analyzer.analyze())
+
+# 文件操作与异常处理
+try:
+    # 写入数据
+    with open("data.txt", "w", encoding="utf-8") as f:
+        f.write("姓名,分数\n")
+        f.write("小明,85\n")
+        f.write("小红,92\n")
+    
+    # 读取数据
+    with open("data.txt", "r", encoding="utf-8") as f:
+        content = f.read()
+        print("文件内容:\n", content)
+except Exception as e:
+    print(f"错误: {e}")`,
       order: 1
     },
     {
       id: 'chapter-2',
-      title: '数据结构',
-      description: '学习 Python 中常用的数据结构及其操作',
+      title: '数据处理"三剑客"',
+      description: '直接赋能数据分析专业的核心库，是数据处理工作的"标准接口"',
       content: `
-## 2.1 序列类型
+## 2.1 NumPy：数值计算基础
 
-### 列表 (List)
-- 有序、可变的元素集合
-- 支持索引和切片操作
-- 常用方法：append(), insert(), remove(), pop(), sort()
+- **多维数组**：ndarray 对象
+- **数组操作**：索引、切片、形状修改
+- **数学运算**：向量化计算、广播
+- **统计函数**：均值、标准差、最大值、最小值
+- **重点**：理解向量化计算的效率优势
 
-### 元组 (Tuple)
-- 有序、不可变的元素集合
-- 使用圆括号 () 定义
-- 比列表更节省内存
+## 2.2 Pandas：数据分析利器
 
-### 字符串 (String)
-- 不可变的字符序列
-- 支持索引和切片
-- 丰富的内置方法
+- **核心数据结构**：Series（一维）、DataFrame（二维）
+- **数据读取**：CSV、Excel、JSON
+- **数据清洗**：处理缺失值、重复值
+- **数据操作**：筛选、排序、分组聚合、合并连接
+- **重点**：熟练掌握 DataFrame 的各种操作
 
-## 2.2 映射类型
+## 2.3 Matplotlib & Seaborn：数据可视化
 
-### 字典 (Dictionary)
-- 键值对的无序集合
-- 键必须是不可变类型
-- 常用方法：keys(), values(), items(), get()
-
-## 2.3 集合类型
-
-### 集合 (Set)
-- 无序、唯一元素的集合
-- 支持集合运算：并集、交集、差集
-- 常用方法：add(), remove(), union(), intersection()
-
-## 2.4 列表推导式
-
-一种简洁创建列表的方式，提高代码可读性和效率。
+- **Matplotlib 基础**：折线图、散点图、柱状图、直方图
+- **Seaborn**：箱线图、热力图、小提琴图
+- **图表美化**：标题、标签、图例、颜色
+- **重点**：将分析结果直观呈现
       `,
-      codeExample: `# 列表操作
-fruits = ["苹果", "香蕉", "橙子", "葡萄"]
-print("原列表:", fruits)
+      codeExample: `# NumPy 示例
+import numpy as np
 
-# 添加元素
-fruits.append("草莓")
-print("添加后:", fruits)
+# 创建数组
+arr = np.array([1, 2, 3, 4, 5])
+print("NumPy 数组:", arr)
+print("数组形状:", arr.shape)
 
-# 切片
-print("前两个:", fruits[:2])
-print("最后两个:", fruits[-2:])
+# 向量化计算
+arr_squared = arr ** 2
+print("平方结果:", arr_squared)
 
-# 列表推导式
-squares = [x * x for x in range(1, 6)]
-print("平方数:", squares)
+# 统计计算
+print("均值:", np.mean(arr))
+print("标准差:", np.std(arr))
 
-evens = [x for x in range(1, 11) if x % 2 == 0]
-print("偶数:", evens)
+# Pandas 示例
+import pandas as pd
 
-# 字典操作
-student = {
-    "name": "小明",
-    "age": 20,
-    "major": "计算机科学"
+# 创建 DataFrame
+data = {
+    'name': ['小明', '小红', '小华', '小丽'],
+    'score': [85, 92, 78, 90],
+    'major': ['数据分析', '计算机', '数据分析', '计算机']
 }
-print("学生信息:", student)
-print("姓名:", student["name"])
-print("年龄:", student.get("age"))
+df = pd.DataFrame(data)
+print("\nPandas DataFrame:\n", df)
 
-# 集合操作
-numbers = {1, 2, 3, 4, 5}
-even_numbers = {2, 4, 6, 8}
+# 数据操作
+print("\n按分数排序:\n", df.sort_values('score', ascending=False))
+print("\n按专业分组统计:\n", df.groupby('major')['score'].mean())
 
-print("并集:", numbers | even_numbers)
-print("交集:", numbers & even_numbers)
-print("差集:", numbers - even_numbers)`,
+# 数据可视化
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# 设置中文字体
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+# 柱状图
+plt.figure(figsize=(10, 6))
+sns.barplot(x='name', y='score', data=df)
+plt.title('学生分数')
+plt.tight_layout()
+plt.savefig('score_bar.png')
+print("\n柱状图已保存为 score_bar.png")
+
+# 箱线图
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='major', y='score', data=df)
+plt.title('不同专业分数分布')
+plt.tight_layout()
+plt.savefig('score_boxplot.png')
+print("箱线图已保存为 score_boxplot.png")`,
       order: 2
     },
     {
       id: 'chapter-3',
-      title: '函数与模块',
-      description: '学习如何定义和使用函数，以及模块的导入和使用',
+      title: '必要的进阶与衔接内容',
+      description: '为未来拓展预留接口，帮助理解数据来源和系统交互',
       content: `
-## 3.1 函数定义与调用
+## 3.1 数据库基础操作
 
-- 使用 `def` 关键字定义函数
-- 函数可以接受参数和返回值
-- 函数提高代码复用性和可维护性
+- **关系型数据库**：MySQL、SQLite
+- **Python 连接数据库**：sqlalchemy、pymysql
+- **基本 SQL 查询**：SELECT、WHERE、JOIN
+- **数据存取**：从数据库读取数据到 DataFrame
+- **重点**：实际工作中数据常存储在数据库中
 
-## 3.2 函数参数类型
+## 3.2 基础正则表达式
 
-- **位置参数**：按顺序传递的参数
-- **默认参数**：带有默认值的参数
-- **可变参数**：`*args` 接收任意数量的位置参数
-- **关键字参数**：`**kwargs` 接收任意数量的关键字参数
+- **正则表达式语法**：元字符、量词、分组
+- **Python 中的正则**：re 模块
+- **应用场景**：文本数据匹配和提取
+- **重点**：数据清洗，处理非结构化文本数据
 
-## 3.3 函数作用域
+## 3.3 API 请求基础
 
-- **局部变量**：函数内部定义的变量
-- **全局变量**：函数外部定义的变量
-- **nonlocal 关键字**：在嵌套函数中修改外部函数的变量
-
-## 3.4 模块与包
-
-- **模块**：一个 .py 文件，包含函数、类和变量
-- **包**：包含多个模块的目录，必须有 __init__.py 文件
-- **导入方式**：import module, from module import function, from module import *
-
-## 3.5 标准库使用
-
-Python 标准库提供了丰富的功能模块，如：
-- `math`：数学运算
-- `random`：随机数生成
-- `datetime`：日期时间处理
-- `os`：操作系统接口
+- **HTTP 请求**：GET、POST
+- **requests 库**：发送请求，处理响应
+- **JSON 数据**：解析 API 返回的 JSON 数据
+- **重点**：获取网络 API 提供的数据
       `,
-      codeExample: `# 基本函数定义
-def greet(name):
-    """问候函数"""
-    return f"你好, {name}!"
+      codeExample: `# 正则表达式示例
+import re
 
-print(greet("小明"))
+# 提取邮箱
+text = "联系邮箱: user@example.com, admin@test.org"
+emails = re.findall(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', text)
+print("提取的邮箱:", emails)
 
-# 默认参数
-def greet(name, greeting="你好"):
-    return f"{greeting}, {name}!"
+# 提取电话号码
+phone_text = "电话: 13812345678, 010-87654321"
+phones = re.findall(r'1[3-9]\d{9}|0\d{2,3}-?\d{7,8}', phone_text)
+print("提取的电话:", phones)
 
-print(greet("小红"))
-print(greet("小华", "早上好"))
+# API 请求示例
+import requests
+import json
 
-# 可变参数
-def sum_all(*numbers):
-    total = 0
-    for num in numbers:
-        total += num
-    return total
+try:
+    # 示例：获取 JSON placeholder 数据
+    response = requests.get('https://jsonplaceholder.typicode.com/todos/1')
+    if response.status_code == 200:
+        data = response.json()
+        print("\nAPI 响应数据:", json.dumps(data, indent=2, ensure_ascii=False))
+    else:
+        print(f"API 请求失败: {response.status_code}")
+except Exception as e:
+    print(f"错误: {e}")
 
-print("总和:", sum_all(1, 2, 3, 4, 5))
+# 数据库操作示例（需要安装相关库）
+"""
+import pandas as pd
+from sqlalchemy import create_engine
 
-# 关键字参数
-def print_info(**kwargs):
-    for key, value in kwargs.items():
-        print(f"{key}: {value}")
+# 创建 SQLite 数据库引擎
+engine = create_engine('sqlite:///test.db')
 
-print_info(name="小明", age=20, city="北京")
+# 创建 DataFrame
+data = {
+    'name': ['小明', '小红'],
+    'age': [20, 21],
+    'score': [85, 92]
+}
+df = pd.DataFrame(data)
 
-# 模块导入
-import math
-print("π:", math.pi)
-print("平方根:", math.sqrt(16))
+# 写入数据库
+df.to_sql('students', engine, index=False, if_exists='replace')
+print("数据已写入数据库")
 
-import random
-print("随机数:", random.randint(1, 10))
-
-from datetime import datetime
-print("当前时间:", datetime.now())`,
+# 从数据库读取
+read_df = pd.read_sql('SELECT * FROM students', engine)
+print("\n从数据库读取的数据:\n", read_df)
+"""`,
       order: 3
     },
     {
       id: 'chapter-4',
-      title: '面向对象编程',
-      description: '学习类和对象的概念，以及面向对象编程的基本原理',
+      title: '高效学习与实践方法',
+      description: '适应 AI 时代的自学模式，提升学习效率',
       content: `
-## 4.1 类与对象
+## 4.1 案例优先，实践为王
 
-- **类**：对象的蓝图，定义了对象的属性和方法
-- **对象**：类的实例，具有类定义的属性和方法
-- **属性**：对象的特征
-- **方法**：对象的行为
+- **项目驱动学习 (PBL)**：通过具体项目驱动学习
+- **小型数据集实践**：使用公开数据集进行练习
+- **完整工作流**：从数据获取到分析再到可视化
+- **重点**：不要孤立学习语法，通过项目巩固知识
 
-## 4.2 类的定义与使用
+## 4.2 模仿、修改与调试
 
-- 使用 `class` 关键字定义类
-- `__init__` 方法：构造函数，初始化对象属性
-- `self` 参数：指向对象自身的引用
+- **阅读优秀代码**：学习他人的代码风格和思路
+- **修改代码**：改变参数、逻辑，观察结果变化
+- **调试技巧**：使用 IDE 调试工具或打印中间结果
+- **重点**：检验和修正 AI 生成的代码
 
-## 4.3 继承
+## 4.3 善用 AI 作为学习伙伴
 
-- 子类继承父类的属性和方法
-- 使用 `super()` 调用父类的方法
-- 可以重写父类的方法
+- **AI 工具**：ChatGPT、Claude、Copilot
+- **正确使用方式**：将 AI 视为问答伙伴和代码示例生成器
+- **代码理解**：必须能读懂、理解并调试 AI 生成的代码
+- **重点**：核心概念理解必须掌握在自己手中
 
-## 4.4 封装
+## 4.4 建立正确的学习资源观
 
-- 将数据和方法封装在类中
-- 控制属性的访问权限
-- 使用下划线前缀表示私有属性
-
-## 4.5 多态
-
-- 不同类的对象可以使用相同的方法名
-- 方法的行为根据对象的类型而不同
+- **推荐教程**：廖雪峰的 Python 教程、Codecademy、实验楼
+- **官方文档**：NumPy、Pandas、Matplotlib 官方文档
+- **学习路径**：以"数据处理三剑客"为核心目标，反向驱动语法学习
+- **重点**：选择体系完整、强调实践的教程
       `,
-      codeExample: `# 基本类定义
-class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-    
-    def introduce(self):
-        return f"我叫{self.name}，今年{self.age}岁"
+      codeExample: `# 实践案例：数据分析工作流示例
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# 创建对象
-person1 = Person("小明", 25)
-person2 = Person("小红", 20)
+# 设置中文字体
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
 
-print(person1.introduce())
-print(person2.introduce())
+# 1. 数据获取（模拟数据）
+data = {
+    'product': ['A', 'B', 'C', 'D', 'E'],
+    'sales': [120, 150, 90, 200, 180],
+    'profit': [30, 45, 20, 50, 40],
+    'region': ['华东', '华南', '华北', '西南', '东北']
+}
 
-# 继承
-class Student(Person):
-    def __init__(self, name, age, student_id, major):
-        super().__init__(name, age)
-        self.student_id = student_id
-        self.major = major
-    
-    def study(self):
-        return f"{self.name}正在学习{self.major}"
-    
-    def introduce(self):
-        base = super().introduce()
-        return f"{base}，学号{self.student_id}，专业{self.major}"
+# 2. 数据清洗与分析
+df = pd.DataFrame(data)
+print("原始数据:\n", df)
 
-# 创建学生对象
-student = Student("小华", 22, "2023001", "计算机科学")
-print(student.introduce())
-print(student.study())
+# 计算利润率
+df['profit_rate'] = (df['profit'] / df['sales'] * 100).round(2)
+print("\n添加利润率后:\n", df)
 
-# 类属性和实例属性
-class Circle:
-    # 类属性
-    pi = 3.14159
-    
-    def __init__(self, radius):
-        # 实例属性
-        self.radius = radius
-    
-    def area(self):
-        return Circle.pi * self.radius * self.radius
+# 按销售额排序
+top_sales = df.sort_values('sales', ascending=False)
+print("\n销售额排序:\n", top_sales)
 
-circle = Circle(5)
-print(f"半径: {circle.radius}")
-print(f"面积: {circle.area():.2f}")`,
+# 3. 数据可视化
+plt.figure(figsize=(12, 8))
+
+# 子图 1：销售额柱状图
+plt.subplot(2, 2, 1)
+sns.barplot(x='product', y='sales', data=df)
+plt.title('产品销售额')
+
+# 子图 2：利润率饼图
+plt.subplot(2, 2, 2)
+plt.pie(df['profit'], labels=df['product'], autopct='%1.1f%%')
+plt.title('利润分布')
+
+# 子图 3：销售额与利润率散点图
+plt.subplot(2, 2, 3)
+sns.scatterplot(x='sales', y='profit_rate', data=df, s=100)
+plt.title('销售额与利润率关系')
+
+# 子图 4：地区销售对比
+plt.subplot(2, 2, 4)
+sns.barplot(x='region', y='sales', data=df)
+plt.title('地区销售额')
+
+plt.tight_layout()
+plt.savefig('sales_analysis.png')
+print("\n分析图表已保存为 sales_analysis.png")
+
+# 4. 总结分析结果
+print("\n分析总结:")
+print(f"总销售额: {df['sales'].sum()}")
+print(f"总利润: {df['profit'].sum()}")
+print(f"平均利润率: {df['profit_rate'].mean():.2f}%")
+print(f"销售额最高的产品: {top_sales.iloc[0]['product']} ({top_sales.iloc[0]['sales']})")
+print(f"利润率最高的产品: {df.loc[df['profit_rate'].idxmax()]['product']} ({df['profit_rate'].max():.2f}%)")`,
       order: 4
-    },
-    {
-      id: 'chapter-5',
-      title: '文件操作与异常处理',
-      description: '学习如何进行文件读写操作，以及如何处理程序运行中的异常',
-      content: `
-## 5.1 文件操作
-
-### 文件打开与关闭
-- 使用 `open()` 函数打开文件
-- 模式：'r'（读）、'w'（写）、'a'（追加）、'b'（二进制）
-- 使用 `with` 语句自动关闭文件
-
-### 文件读取
-- `read()`：读取整个文件
-- `readline()`：读取一行
-- `readlines()`：读取所有行到列表
-
-### 文件写入
-- `write()`：写入字符串
-- `writelines()`：写入字符串列表
-
-## 5.2 异常处理
-
-### 异常类型
-- `SyntaxError`：语法错误
-- `NameError`：变量未定义
-- `TypeError`：类型错误
-- `ValueError`：值错误
-- `FileNotFoundError`：文件未找到
-
-### 异常处理机制
-- `try-except`：捕获并处理异常
-- `else`：无异常时执行
-- `finally`：无论是否有异常都执行
-- `raise`：手动抛出异常
-
-## 5.3 上下文管理器
-
-- `with` 语句：自动管理资源
-- 适用于文件、网络连接等需要关闭的资源
-      `,
-      codeExample: `# 文件写入
-with open("example.txt", "w", encoding="utf-8") as f:
-    f.write("Hello, Python!\n")
-    f.write("这是一个测试文件。\n")
-    f.writelines(["第一行\n", "第二行\n", "第三行\n"])
-
-print("文件写入完成")
-
-# 文件读取
-with open("example.txt", "r", encoding="utf-8") as f:
-    content = f.read()
-    print("文件内容:")
-    print(content)
-
-# 逐行读取
-print("\n逐行读取:")
-with open("example.txt", "r", encoding="utf-8") as f:
-    for line in f:
-        print(line.strip())
-
-# 异常处理
-try:
-    # 尝试打开不存在的文件
-    with open("nonexistent.txt", "r") as f:
-        content = f.read()
-except FileNotFoundError:
-    print("错误：文件未找到")
-except Exception as e:
-    print(f"错误：{e}")
-else:
-    print("文件读取成功")
-finally:
-    print("操作完成")
-
-# 手动抛出异常
-def divide(a, b):
-    if b == 0:
-        raise ValueError("除数不能为零")
-    return a / b
-
-try:
-    result = divide(10, 0)
-except ValueError as e:
-    print(f"错误：{e}")
-else:
-    print(f"结果：{result}")`,
-      order: 5
     }
   ]
 };
