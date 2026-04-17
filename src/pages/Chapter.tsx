@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ChevronLeft, ChevronRight, Home, Code, Menu, X } from 'lucide-react';
 import { courseData } from '@/data/courseData';
 import { useState } from 'react';
+import CodeEditor from '@/components/CodeEditor';
 
 export default function Chapter() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -171,17 +172,7 @@ export default function Chapter() {
         </div>
 
         {/* Code Example */}
-        <div className="bg-slate-900 rounded-2xl shadow-lg overflow-hidden mb-8">
-          <div className="flex items-center gap-2 px-6 py-4 bg-slate-800 border-b border-slate-700">
-            <Code className="w-5 h-5 text-yellow-400" />
-            <span className="text-slate-300 font-medium">代码示例</span>
-          </div>
-          <pre className="p-6 overflow-x-auto">
-            <code className="text-sm text-slate-100 font-mono">
-              {chapter.codeExample}
-            </code>
-          </pre>
-        </div>
+        <CodeEditor code={chapter.codeExample} title="代码示例" language="python" />
 
         {/* Navigation */}
         <div className="flex flex-col sm:flex-row gap-4">
