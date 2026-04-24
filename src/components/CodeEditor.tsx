@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Play, ChevronDown, ChevronUp, Copy, Check, X } from 'lucide-react';
+import { Play, ChevronDown, ChevronUp, Copy, Check, X, RefreshCw } from 'lucide-react';
 
 interface CodeEditorProps {
   code: string;
@@ -12,6 +12,7 @@ export default function CodeEditor({ code, language = 'python', title = '代码�
   const [isRunning, setIsRunning] = useState(false);
   const [output, setOutput] = useState<string>('');
   const [copied, setCopied] = useState(false);
+  const [userCode, setUserCode] = useState<string>(code);
   const codeRef = useRef<HTMLPreElement>(null);
 
   const handleRunCode = async () => {
@@ -24,9 +25,9 @@ export default function CodeEditor({ code, language = 'python', title = '代码�
       let result = '';
       try {
         // 模拟 Python 代码执行
-        if (code.includes('print(')) {
+        if (userCode.includes('print(')) {
           // 提取 print 语句的内容
-          const printMatches = code.match(/print\((.*?)\)/g);
+          const printMatches = userCode.match(/print\((.*?)\)/g);
           if (printMatches) {
             printMatches.forEach(match => {
               let content = match.replace('print(', '').replace(')', '');
@@ -38,11 +39,11 @@ export default function CodeEditor({ code, language = 'python', title = '代码�
         }
         
         // 模拟计算
-        if (code.includes('sum(')) {
+        if (userCode.includes('sum(')) {
           result += '计算结果: 15\n';
         }
         
-        if (code.includes('DataFrame')) {
+        if (userCode.includes('DataFrame')) {
           result += 'DataFrame 输出:\n   name  score\n0  小明     85\n1  小红     92\n';
         }
         
@@ -58,8 +59,13 @@ export default function CodeEditor({ code, language = 'python', title = '代码�
     }, 1000);
   };
 
+  const handleResetCode = () => {
+    setUserCode(code);
+    setOutput('');
+  };
+
   const handleCopyCode = () => {
-    navigator.clipboard.writeText(code);
+    navigator.clipboard.writeText(userCode);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -97,6 +103,13 @@ export default function CodeEditor({ code, language = 'python', title = '代码�
             <span>运行</span>
           </button>
           <button
+            onClick={handleResetCode}
+            className="p-2 text-slate-400 hover:text-white transition-colors"
+            title="重置代码"
+          >
+            <RefreshCw className="w-4 h-4" />
+          </button>
+          <button
             onClick={handleToggleExpand}
             className="p-2 text-slate-400 hover:text-white transition-colors"
             title={isExpanded ? '折叠' : '展开'}
@@ -109,11 +122,14 @@ export default function CodeEditor({ code, language = 'python', title = '代码�
       {/* Code */}
       {isExpanded && (
         <>
-          <pre ref={codeRef} className="p-6 overflow-x-auto max-h-96">
-            <code className="text-sm text-slate-100 font-mono whitespace-pre-wrap">
-              {code}
-            </code>
-          </pre>
+          <div className="p-6 overflow-x-auto max-h-96">
+            <textarea
+              value={userCode}
+              onChange={(e) => setUserCode(e.target.value)}
+              className="w-full h-full bg-transparent text-sm text-slate-100 font-mono whitespace-pre-wrap resize-none focus:outline-none"
+              spellCheck={false}
+            />
+          </div>
 
           {/* Output */}
           <div className="border-t border-slate-700">

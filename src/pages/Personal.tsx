@@ -1,4 +1,4 @@
-import { Heart, Star, Sparkles, GraduationCap, Camera, Music, Coffee, Flower2, Mail, Instagram, Wechat, Code } from 'lucide-react';
+import { Heart, Star, Sparkles, GraduationCap, Camera, Music, Coffee, Flower2, Mail, Instagram, MessageSquare, Code } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Personal() {
@@ -182,7 +182,7 @@ export default function Personal() {
               </a>
               <div className="group bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <Wechat className="w-8 h-8" />
+                  <MessageSquare className="w-8 h-8" />
                 </div>
                 <h3 className="font-bold text-green-700 mb-1">微信</h3>
                 <p className="text-emerald-500 text-sm">扫码添加</p>
